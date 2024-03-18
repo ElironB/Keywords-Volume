@@ -7,23 +7,22 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-
-# Install Chromium
-RUN apt-get update && apt-get install -y chromium-driver
-
-# Copy the chromedriver executable to the container
-COPY chromedriver /app/chromedriver
-
-# Set the executable permission for chromedriver
-RUN chmod +x /app/chromedriver
+# Install Chromium and ChromeDriver along with any other dependencies
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --trusted-host pypi.python.org -r requirements.txt
 
 # Make port 1000 available to the world outside this container
 EXPOSE 1000
 
-# Define environment variable
+# Define environment variable for the app to use
 ENV NAME World
 
+# Specify paths for Chromium and ChromeDriver (adjust if needed)
+ENV CHROMIUM_PATH /usr/bin/chromium
+ENV CHROMEDRIVER_PATH /usr/bin/chromedriver
+
 # Run uvicorn when the container launches
-CMD ["uvicorn", "main:main", "--host", "0.0.0.--port", "1000"]
+CMD ["uvicorn", "main:main", "--host", "0.0.0.0", "--port", "1000"]
