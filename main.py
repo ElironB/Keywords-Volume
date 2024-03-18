@@ -40,7 +40,7 @@ async def get_keyword_results(keyword: str):
                     print("Failed to click the button after retries.")
 
         # Use JavaScript to click the "Continue" button without waiting for full page load
-        time.sleep(1)  # Give it a little extra time to render
+        time.sleep(2)  # Give it a little extra time to render
         try:
             click_with_retry("#refine-continue", retries=3, delay=1)
         except Exception as e:
