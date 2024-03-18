@@ -20,6 +20,7 @@ async def get_keyword_results(keyword: str):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-images')
+    options.add_argument("--verbose")
     options.page_load_strategy = 'eager'
 
     # service = Service(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
