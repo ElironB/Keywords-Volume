@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && pip install --trusted-host pypi.python.org -r requirements.txt
 
 # Make port 80 available to the world outside this container
-EXPOSE 8080
+EXPOSE 1000
 
 # Define environment variable for the app to use
 ENV NAME World
@@ -25,4 +25,4 @@ ENV CHROMIUM_PATH /usr/bin/chromium
 ENV CHROMEDRIVER_PATH /usr/bin/chromedriver
 
 # Run uvicorn when the container launches
-CMD ["uvicorn", "main:main", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:main", "--host", "0.0.0.0", "--port", "1000"]
