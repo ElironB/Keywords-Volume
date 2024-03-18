@@ -11,8 +11,9 @@ COPY . /app
 RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install --trusted-host pypi.python.org -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt
 
 # Make port 1000 available to the world outside this container
 EXPOSE 1000
