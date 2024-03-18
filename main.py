@@ -21,7 +21,7 @@ async def get_keyword_results(keyword: str):
     options.add_argument('--disable-images')
     options.page_load_strategy = 'eager'
 
-    service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+    service = Service(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
