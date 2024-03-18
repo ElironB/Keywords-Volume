@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 import time
 import os
+
 
 main = FastAPI()
 
@@ -20,7 +21,9 @@ async def get_keyword_results(keyword: str):
     options.add_argument('--disable-images')
     options.page_load_strategy = 'eager'
 
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+    service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+    driver = webdriver.Chrome(service=service, options=options)
+
 
     try:
         driver.get(f"https://tools.wordstream.com/fkt?website={keyword}")
