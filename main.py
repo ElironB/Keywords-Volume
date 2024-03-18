@@ -4,23 +4,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 import time
+import os
 
 main = FastAPI()
 
 
 @main.get("/get-keyword-results/")
 async def get_keyword_results(keyword: str):
-    options = webdriver.ChromeOptions()
+    options.binary_location = os.environ.get("CHROMIUM_PATH")
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-images')
     options.page_load_strategy = 'eager'
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
 
     try:
         driver.get(f"https://tools.wordstream.com/fkt?website={keyword}")
