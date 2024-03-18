@@ -15,7 +15,7 @@ main = FastAPI()
 @main.get("/get-keyword-results/")
 async def get_keyword_results(keyword: str):
     options = webdriver.ChromeOptions()
-    # options.binary_location = os.environ.get("CHROMIUM_PATH")
+    options.binary_location = "/usr/bin/chromium"
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
@@ -24,7 +24,7 @@ async def get_keyword_results(keyword: str):
 
     # service = Service(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
     # driver = webdriver.Chrome(service=service, options=options)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(service=Service("/usr/bin/chromedriver"), options=options)
 
     try:
         driver.get(f"https://tools.wordstream.com/fkt?website={keyword}")
