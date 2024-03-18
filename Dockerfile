@@ -20,9 +20,14 @@ EXPOSE 1000
 # Define environment variable for the app to use
 ENV NAME World
 
+# Copy the ChromeDriver executable to the container
+COPY chromedriver /app/chromedriver
+
+# Set the environment variable for ChromeDriver path
+ENV CHROMEDRIVER_PATH /app/chromedriver
+
 # Specify paths for Chromium and ChromeDriver (adjust if needed)
 ENV CHROMIUM_PATH /usr/bin/chromium
-ENV CHROMEDRIVER_PATH /usr/bin/chromedriver
 
 # Run uvicorn when the container launches
 CMD ["uvicorn", "main:main", "--host", "0.0.0.0", "--port", "1000"]
