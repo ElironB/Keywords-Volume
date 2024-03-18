@@ -12,6 +12,7 @@ main = FastAPI()
 
 @main.get("/get-keyword-results/")
 async def get_keyword_results(keyword: str):
+    options = webdriver.ChromeOptions()
     options.binary_location = os.environ.get("CHROMIUM_PATH")
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
